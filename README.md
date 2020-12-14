@@ -1,5 +1,8 @@
 # React Material Ui Cookie Dialog
 
+[![Version](https://img.shields.io/npm/v/react-mui-cookie-dialog.svg)](https://www.npmjs.com/package/react-mui-cookie-dialog)
+[![Downloads](https://img.shields.io/npm/dt/react-mui-cookie-dialog.svg)](https://www.npmjs.com/package/react-mui-cookie-dialog)
+
 A simple solution for a GDPR compliant Cookie dialog.
 
 ## Example
@@ -58,5 +61,4 @@ const App = () => {
 };
 
 ReactDOM.render(<App />, document.getElementById('root'));
-
 ```
