@@ -31,6 +31,7 @@ const App = () => {
 
   const handleAccept = (acceptedCategories: CookieDialogCategory[]) => {
     // Do something with the accepted categories
+    console.log(acceptedCategories);
     setCookieDialogVisible(false);
   };
 
