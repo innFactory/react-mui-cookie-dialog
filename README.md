@@ -47,7 +47,8 @@ const App = () => {
         visible={cookieDialogVisible}
         categories={categories}
         onAccept={handleAccept}
-        // You can use the german pre defined strings but for every other language you will have to define the strings yourself.
+        // You can use the german pre defined strings but for every
+        // other language you will have to define the strings yourself.
         {...cookieDialogStringDefaultsGerman}
         // Every string can be replaced with a function component like this
         mainDialogTitle={() => <Typography>Example title</Typography>}
