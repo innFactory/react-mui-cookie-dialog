@@ -64,7 +64,7 @@ export const cookieDialogStringDefaultsGerman: CookieDialogStringOrComponents = 
 
 const useStyles = makeStyles(theme => ({
   root: (props: CookieDialogProps) => ({
-    position: 'absolute',
+    position: 'fixed',
     top: 0,
     left: 0,
     right: 0,
@@ -73,7 +73,7 @@ const useStyles = makeStyles(theme => ({
     zIndex: props.zIndex ?? 9999,
   }),
   paper: {
-    position: 'absolute',
+    position: 'fixed',
     top: '30%',
     left: '50vw',
     width: '40vw',
