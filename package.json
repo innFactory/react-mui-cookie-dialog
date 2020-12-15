@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "A simple solution for a GDPR compliant Cookie dialog with support for multiple Cookie categories.",
   "keywords": [
@@ -10,6 +10,10 @@
     "cookie-categories",
     "gdpr"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/innFactory/react-mui-cookie-dialog"
+  },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -34,9 +38,7 @@
     "react": ">=16"
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
+    "hooks": {}
   },
   "prettier": {
     "printWidth": 80,
