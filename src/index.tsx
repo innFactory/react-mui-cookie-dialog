@@ -32,16 +32,16 @@ export interface CookieDialogCategory {
 
 export interface CookieDialogStringOrComponents {
   // Main Dialog
-  mainDialogTitle: StringOrComponent;
+  mainDialogTitle: string;
   mainDialogDescription: StringOrComponent;
-  mainDialogAccept: StringOrComponent;
-  mainDialogOptions: StringOrComponent;
+  mainDialogAccept: string;
+  mainDialogOptions: string;
   // Options Dialog
-  optionsDialogTitle: StringOrComponent;
+  optionsDialogTitle: string;
   optionsDialogDescriptionAbove: StringOrComponent;
   optionsDialogDescriptionBelow: StringOrComponent;
-  optionsDialogSave: StringOrComponent;
-  optionsDialogAccept: StringOrComponent;
+  optionsDialogSave: string;
+  optionsDialogAccept: string;
 }
 
 export const cookieDialogStringDefaultsGerman: CookieDialogStringOrComponents = {
@@ -156,13 +156,7 @@ export const CookieDialog = (props: CookieDialogProps) => {
     <Dialog open={visible} fullScreen={fullScreen} scroll="paper">
       {!optionsVisible && (
         <>
-          <DialogTitle>
-            <StringOrComponent
-              soc={socs.mainDialogTitle}
-              variant="h4"
-              className={classes.dialogTitle}
-            />
-          </DialogTitle>
+          <DialogTitle>{socs.mainDialogTitle}</DialogTitle>
           <DialogContent>
             <StringOrComponent
               soc={socs.mainDialogDescription}
@@ -185,13 +179,7 @@ export const CookieDialog = (props: CookieDialogProps) => {
       )}
       {optionsVisible && (
         <>
-          <DialogTitle>
-            <StringOrComponent
-              soc={socs.optionsDialogTitle}
-              variant="h4"
-              className={classes.dialogTitle}
-            />
-          </DialogTitle>
+          <DialogTitle>{socs.optionsDialogTitle}</DialogTitle>
           <DialogContent>
             <StringOrComponent
               soc={socs.optionsDialogDescriptionAbove}
