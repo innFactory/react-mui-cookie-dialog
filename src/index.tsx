@@ -10,6 +10,7 @@ import * as React from 'react';
 export type CookieDialogProps = {
   visible: boolean;
   categories: CookieDialogCategory[];
+  darkenBackground?: boolean;
   onAccept: (categories: CookieDialogCategory[]) => void;
 } & CookieDialogStringOrComponents;
 
@@ -61,14 +62,15 @@ export const cookieDialogStringDefaultsGerman: CookieDialogStringOrComponents = 
 };
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  root: (props: CookieDialogProps) => ({
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 100)',
-  },
+    backgroundColor:
+      props.darkenBackground ?? false ? '' : 'rgba(0, 0, 0, 100)',
+  }),
   paper: {
     position: 'absolute',
     top: '30%',
@@ -138,7 +140,7 @@ const StringOrComponent = (props: {
 };
 
 export const CookieDialog = (props: CookieDialogProps) => {
-  const classes = useStyles();
+  const classes = useStyles(props);
   const socs: CookieDialogStringOrComponents = props;
 
   const [visible, setVisible] = React.useState(props.visible);
