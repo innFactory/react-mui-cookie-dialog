@@ -1,17 +1,22 @@
-import { makeStyles } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Paper from '@material-ui/core/Paper';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControlLabel,
+  makeStyles,
+  Switch,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
 import { Variant } from '@material-ui/core/styles/createTypography';
-import Switch from '@material-ui/core/Switch';
-import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 
 export type CookieDialogProps = {
   visible: boolean;
   categories: CookieDialogCategory[];
-  darkenBackground?: boolean;
-  zIndex?: number;
   onAccept: (categories: CookieDialogCategory[]) => void;
 } & CookieDialogStringOrComponents;
 
@@ -63,39 +68,6 @@ export const cookieDialogStringDefaultsGerman: CookieDialogStringOrComponents = 
 };
 
 const useStyles = makeStyles(theme => ({
-  root: (props: CookieDialogProps) => ({
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: props.darkenBackground ?? false ? '' : 'rgb(0 0 0 / 40%)',
-    zIndex: props.zIndex ?? 9999,
-  }),
-  paper: {
-    position: 'fixed',
-    top: '30%',
-    left: '50vw',
-    width: '40vw',
-    transform: 'translate(-50%, -15vh)',
-    padding: '16px',
-    overflowY: 'scroll',
-    maxHeight: '70%',
-    [theme.breakpoints.down('md')]: {
-      width: '60vw',
-    },
-    [theme.breakpoints.down('sm')]: {
-      width: '80vw',
-    },
-    [theme.breakpoints.down('xs')]: {
-      top: 0,
-      left: 0,
-      transform: 'unset',
-      maxHeight: 'unset',
-      width: 'calc(100vw - 32px)',
-      height: 'calc(100vh - 32px)',
-    },
-  },
   dialogTitle: {
     marginBottom: '8px',
   },
@@ -144,6 +116,9 @@ export const CookieDialog = (props: CookieDialogProps) => {
   const classes = useStyles(props);
   const socs: CookieDialogStringOrComponents = props;
 
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   const [visible, setVisible] = React.useState(props.visible);
   const [optionsVisible, setOptionsVisible] = React.useState(false);
   const [categories, setCategories] = React.useState<{
@@ -176,119 +151,111 @@ export const CookieDialog = (props: CookieDialogProps) => {
     setCategories(newCategories);
   };
 
-  if (visible) {
-    return (
-      <div className={classes.root}>
-        <Paper className={classes.paper}>
-          {!optionsVisible && (
-            <>
+  return (
+    <Dialog open={visible} fullScreen={fullScreen} scroll="paper">
+      {!optionsVisible && (
+        <>
+          <DialogTitle>
+            <StringOrComponent
+              soc={socs.mainDialogTitle}
+              variant="h4"
+              className={classes.dialogTitle}
+            />
+          </DialogTitle>
+          <DialogContent>
+            <StringOrComponent
+              soc={socs.mainDialogDescription}
+              variant="body1"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button variant="text" onClick={handleOptionsClick}>
+              <StringOrComponent soc={socs.mainDialogOptions} variant="body1" />
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAcceptAll}
+            >
+              <StringOrComponent soc={socs.mainDialogAccept} variant="body1" />
+            </Button>
+          </DialogActions>
+        </>
+      )}
+      {optionsVisible && (
+        <>
+          <DialogTitle>
+            <StringOrComponent
+              soc={socs.optionsDialogTitle}
+              variant="h4"
+              className={classes.dialogTitle}
+            />
+          </DialogTitle>
+          <DialogContent>
+            <StringOrComponent
+              soc={socs.optionsDialogDescriptionAbove}
+              variant="body1"
+            />
+            <div className={classes.cookieCategories}>
+              {props.categories?.map((category, index) => {
+                return (
+                  <div className={classes.cookieCategory} key={index}>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={
+                            categories[category.key] ??
+                            category.isNecessary ??
+                            false
+                          }
+                          onChange={
+                            category.isNecessary ?? false
+                              ? undefined
+                              : handleChange
+                          }
+                          name={category.key}
+                          color="primary"
+                        />
+                      }
+                      label={
+                        <StringOrComponent
+                          soc={category.title}
+                          variant="body1"
+                        />
+                      }
+                      labelPlacement="end"
+                    />
+                    <StringOrComponent
+                      soc={category.description}
+                      variant="body2"
+                      className={classes.cookieCategoryDescription}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+            <StringOrComponent
+              soc={socs.optionsDialogDescriptionBelow}
+              variant="body1"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAcceptAll}
+            >
               <StringOrComponent
-                soc={socs.mainDialogTitle}
-                variant="h4"
-                className={classes.dialogTitle}
-              />
-              <StringOrComponent
-                soc={socs.mainDialogDescription}
+                soc={socs.optionsDialogAccept}
                 variant="body1"
               />
-
-              <div className={classes.buttonContainer}>
-                <Button variant="text" onClick={handleOptionsClick}>
-                  <StringOrComponent
-                    soc={socs.mainDialogOptions}
-                    variant="body1"
-                  />
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleAcceptAll}
-                >
-                  <StringOrComponent
-                    soc={socs.mainDialogAccept}
-                    variant="body1"
-                  />
-                </Button>
-              </div>
-            </>
-          )}
-          {optionsVisible && (
-            <>
-              <StringOrComponent
-                soc={socs.optionsDialogTitle}
-                variant="h4"
-                className={classes.dialogTitle}
-              />
-              <StringOrComponent
-                soc={socs.optionsDialogDescriptionAbove}
-                variant="body1"
-              />
-              <div className={classes.cookieCategories}>
-                {props.categories?.map((category, index) => {
-                  return (
-                    <div className={classes.cookieCategory} key={index}>
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            checked={
-                              categories[category.key] ??
-                              category.isNecessary ??
-                              false
-                            }
-                            onChange={
-                              category.isNecessary ?? false
-                                ? undefined
-                                : handleChange
-                            }
-                            name={category.key}
-                            color="primary"
-                          />
-                        }
-                        label={
-                          <StringOrComponent
-                            soc={category.title}
-                            variant="body1"
-                          />
-                        }
-                        labelPlacement="end"
-                      />
-                      <StringOrComponent
-                        soc={category.description}
-                        variant="body2"
-                        className={classes.cookieCategoryDescription}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-              <StringOrComponent
-                soc={socs.optionsDialogDescriptionBelow}
-                variant="body1"
-              />
-              <div className={classes.buttonContainer}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleAcceptAll}
-                >
-                  <StringOrComponent
-                    soc={socs.optionsDialogAccept}
-                    variant="body1"
-                  />
-                </Button>
-                <Button variant="text" onClick={handleAccept}>
-                  <StringOrComponent
-                    soc={socs.optionsDialogSave}
-                    variant="body1"
-                  />
-                </Button>
-              </div>
-            </>
-          )}
-        </Paper>
-      </div>
-    );
-  }
-
-  return <></>;
+            </Button>
+            <Button variant="text" onClick={handleAccept}>
+              <StringOrComponent soc={socs.optionsDialogSave} variant="body1" />
+            </Button>
+          </DialogActions>
+        </>
+      )}
+    </Dialog>
+  );
 };
