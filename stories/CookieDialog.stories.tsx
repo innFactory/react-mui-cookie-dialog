@@ -1,6 +1,5 @@
 // YourComponent.stories.tsx
 
-import { Typography } from '@material-ui/core';
 import { Story } from '@storybook/react/types-6-0';
 import React from 'react';
 import {
@@ -17,7 +16,7 @@ export default {
 
 const Template: Story<CookieDialogProps> = args => <CookieDialog {...args} />;
 
-const categories: CookieDialogCategory[] = [
+const germanCategories: CookieDialogCategory[] = [
   {
     key: 'necessary',
     title: 'Erforderliche Cookies',
@@ -43,26 +42,43 @@ const categories: CookieDialogCategory[] = [
       'innerhalb und außerhalb dieser Webseite.',
   },
 ];
+const englishCategories: CookieDialogCategory[] = [
+  {
+    key: 'necessary',
+    title: 'Necessary Cookies',
+    description: 'Description',
+    isNecessary: true,
+  },
+  {
+    key: 'analytics',
+    title: 'Analytics & Personalisation',
+    description: 'Description',
+  },
+  {
+    key: 'marketing',
+    title: 'Marketing',
+    description: 'Description',
+  },
+];
 
-export const StringExample = Template.bind({});
-StringExample.args = {
+export const GermanExample = Template.bind({});
+GermanExample.args = {
   visible: true,
-  categories: categories,
+  categories: germanCategories,
   ...cookieDialogStringDefaultsGerman,
 } as CookieDialogProps;
 
-export const ComponentExample = Template.bind({});
-ComponentExample.args = {
+export const EnglishExample = Template.bind({});
+EnglishExample.args = {
   visible: true,
-  categories: categories,
-  ...cookieDialogStringDefaultsGerman,
-  optionsDialogDescriptionBelow: () => (
-    <Typography>
-      Detaillierte Informationen zu den Cookies und eingesetzten Tracking Tools
-      können Sie unserer <a href="">Datenschutzerklärung</a> oder der{' '}
-      <a href="">Cookie-Richtlinie</a> entnehmen. Sie können Ihre gesetzte
-      Präferenz jederzeit anpassen, indem Sie diesen Cookie Manager über den
-      Link in der Datenschutzerklärung aufrufen.
-    </Typography>
-  ),
+  categories: englishCategories,
+  mainDialogTitle: 'Cookies',
+  mainDialogDescription: 'We use cookies... Legal text...',
+  mainDialogOptions: 'Settings',
+  mainDialogAccept: 'Accept and continue',
+  optionsDialogTitle: 'Your Cookie settings for this Website',
+  optionsDialogDescriptionAbove: 'Some text above',
+  optionsDialogDescriptionBelow: 'Some more text below',
+  optionsDialogSave: 'Save choice',
+  optionsDialogAccept: 'Accept all',
 } as CookieDialogProps;
