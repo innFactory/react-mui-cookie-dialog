@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -240,6 +241,14 @@ export const CookieDialog = (props: CookieDialogProps) => {
             />
           </DialogContent>
           <DialogActions>
+            <Box marginRight="auto">
+              <Button variant="text" onClick={handleAccept} size="small">
+                <StringOrComponent
+                  soc={socs.optionsDialogSave}
+                  variant="body1"
+                />
+              </Button>
+            </Box>
             <Button
               variant="contained"
               color="primary"
@@ -249,9 +258,6 @@ export const CookieDialog = (props: CookieDialogProps) => {
                 soc={socs.optionsDialogAccept}
                 variant="body1"
               />
-            </Button>
-            <Button variant="text" onClick={handleAccept}>
-              <StringOrComponent soc={socs.optionsDialogSave} variant="body1" />
             </Button>
           </DialogActions>
         </>
