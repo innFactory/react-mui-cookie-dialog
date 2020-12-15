@@ -11,6 +11,7 @@ export type CookieDialogProps = {
   visible: boolean;
   categories: CookieDialogCategory[];
   darkenBackground?: boolean;
+  zIndex?: number;
   onAccept: (categories: CookieDialogCategory[]) => void;
 } & CookieDialogStringOrComponents;
 
@@ -68,8 +69,8 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor:
-      props.darkenBackground ?? false ? '' : 'rgba(0, 0, 0, 100)',
+    backgroundColor: props.darkenBackground ?? false ? '' : 'rgb(0 0 0 / 40%)',
+    zIndex: props.zIndex ?? 9999,
   }),
   paper: {
     position: 'absolute',
