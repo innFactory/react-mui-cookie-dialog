@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "A simple solution for a GDPR compliant Cookie dialog with support for multiple Cookie categories.",
   "keywords": [
