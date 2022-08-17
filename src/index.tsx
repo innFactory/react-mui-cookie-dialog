@@ -6,13 +6,14 @@ import {
   DialogContent,
   DialogTitle,
   FormControlLabel,
-  makeStyles,
   Switch,
   Typography,
   useMediaQuery,
   useTheme,
-} from '@material-ui/core';
-import { Variant } from '@material-ui/core/styles/createTypography';
+  SxProps,
+  Theme,
+} from '@mui/material';
+import { Variant } from '@mui/material/styles/createTypography';
 import * as React from 'react';
 
 export type CookieDialogProps = {
@@ -68,43 +69,14 @@ export const cookieDialogStringDefaultsGerman: CookieDialogStringOrComponents = 
   optionsDialogAccept: 'Alle akzeptieren',
 };
 
-const useStyles = makeStyles(theme => ({
-  dialogTitle: {
-    marginBottom: '8px',
-  },
-  buttonContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginTop: '12px',
-    [theme.breakpoints.down('xs')]: {
-      flexDirection: 'column',
-      '& button:first-child': {
-        marginBottom: '12px',
-      },
-    },
-  },
-  cookieCategories: {
-    margin: '0 4px',
-  },
-  cookieCategory: {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: '12px 8px',
-  },
-  cookieCategoryDescription: {
-    fontSize: '11px',
-  },
-}));
-
 const StringOrComponent = (props: {
   soc: StringOrComponent;
   variant: Variant;
-  className?: string;
+  sx?: SxProps<Theme>;
 }) => {
   if (typeof props.soc === 'string') {
     return (
-      <Typography variant={props.variant} className={props.className}>
+      <Typography variant={props.variant} sx={props.sx}>
         {props.soc}
       </Typography>
     );
@@ -114,7 +86,6 @@ const StringOrComponent = (props: {
 };
 
 export const CookieDialog = (props: CookieDialogProps) => {
-  const classes = useStyles(props);
   const socs: CookieDialogStringOrComponents = props;
 
   const theme = useTheme();
@@ -185,10 +156,16 @@ export const CookieDialog = (props: CookieDialogProps) => {
               soc={socs.optionsDialogDescriptionAbove}
               variant="body1"
             />
-            <div className={classes.cookieCategories}>
+            <Box sx={{
+              margin: '0 4px',
+            }}>
               {props.categories?.map((category, index) => {
                 return (
-                  <div className={classes.cookieCategory} key={index}>
+                  <Box key={index} sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    margin: '12px 8px',
+                  }}>
                     <FormControlLabel
                       control={
                         <Switch
@@ -217,12 +194,14 @@ export const CookieDialog = (props: CookieDialogProps) => {
                     <StringOrComponent
                       soc={category.description}
                       variant="body2"
-                      className={classes.cookieCategoryDescription}
+                      sx={{
+                        fontSize: '11px',
+                      }}
                     />
-                  </div>
+                  </Box>
                 );
               })}
-            </div>
+            </Box>
             <StringOrComponent
               soc={socs.optionsDialogDescriptionBelow}
               variant="body1"
