@@ -156,16 +156,21 @@ export const CookieDialog = (props: CookieDialogProps) => {
               soc={socs.optionsDialogDescriptionAbove}
               variant="body1"
             />
-            <Box sx={{
-              margin: '0 4px',
-            }}>
+            <Box
+              sx={{
+                margin: '0 4px',
+              }}
+            >
               {props.categories?.map((category, index) => {
                 return (
-                  <Box key={index} sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    margin: '12px 8px',
-                  }}>
+                  <Box
+                    key={index}
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      margin: '12px 8px',
+                    }}
+                  >
                     <FormControlLabel
                       control={
                         <Switch
