@@ -32,4 +32,5 @@ jobs:
         run: yarn build
         
       - name: Build Storybook
-        run: yarn build-storybook
+        # Under GitHub Actions progress reporting results in very long logs.
+        run: yarn build-storybook --quiet
