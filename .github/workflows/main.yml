@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ['10.x', '12.x', '14.x']
+        node: ['12.x', '14.x', '16.x']
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
@@ -30,3 +30,7 @@ jobs:
 
       - name: Build
         run: yarn build
+        
+      - name: Build Storybook
+        # Under GitHub Actions progress reporting results in very long logs.
+        run: yarn build-storybook --quiet
